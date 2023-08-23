@@ -25,4 +25,12 @@ class RegisterationSerializer(serializers.ModelSerializer):
         
         return user_registeration
 
+class AttendanceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Attendance
+        fields = ['user','timestamp', 'action']
+
+    
+
 

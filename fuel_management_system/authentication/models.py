@@ -8,8 +8,8 @@ from django.conf import settings
 # Create your models here.
 ROLE = (
     ('Manager', 'Manager'),
-    ('Fuel Attendant', 'Fuel Attendant'),
-    ('Fuel Transporter', 'Fuel Transporter'),
+    ('Fuel_Attendant', 'Fuel Attendant'),
+    ('Fuel_Transporter', 'Fuel Transporter'),
 )
 class Registeration(AbstractUser):
     phone_number = models.IntegerField(default = 0)

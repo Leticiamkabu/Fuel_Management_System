@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'authentication',
+    'fuel_transporter'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,6 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

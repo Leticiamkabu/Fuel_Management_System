@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('authentication/', include('authentication.urls')),
+    path('fuel_transporter/', include('fuel_transporter.urls')),
 ]

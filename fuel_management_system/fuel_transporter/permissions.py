@@ -28,7 +28,7 @@ class Fuel_transporter_priviledge(permissions.BasePermission):
         return False
 
 
-class Teacher_priviledge(permissions.BasePermission):
+class Fuel_Attendant_priviledge(permissions.BasePermission):
     edit_methods = ("PUT", "PATCH")
 
     def has_permission(self, request, view):
@@ -36,7 +36,7 @@ class Teacher_priviledge(permissions.BasePermission):
             return True
 
     def has_object_permission(self, request, view, obj):
-        if request.user.status == Teacher:
+        if request.user.status == Fuel_Transporter:
             return True
 
         return False

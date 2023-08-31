@@ -4,8 +4,14 @@ from django.db.models.signals import pre_save, post_delete, post_save
 
 # Create your models here.
 
+FUEL_TYPE = (
+    ('Diesel', 'Diesel'),
+    ('Super', 'Super'),
+)
 class Meter_reading(models.Model):
     name = models.CharField(max_length = 200)
+    meter_number = models.IntegerField(default = 0)
+    fuel_type = models.CharField(max_length = 200, choices = FUEL_TYPE , default = 'None')
     opening_time = models.TimeField()
     opening_litter = models.IntegerField(default= 0)
     closing_time = models.TimeField(null = True,blank = True)

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authentication',
     'fuel_transporter',
     'fuel_attendant',
+    'manager',
 ]
 
 MIDDLEWARE = [

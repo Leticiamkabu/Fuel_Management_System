@@ -22,4 +22,5 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('fuel_transporter/', include('fuel_transporter.urls')),
     path('fuel_attendant/', include('fuel_attendant.urls')),
+    path('manager/', include('manager.urls')),
 ]

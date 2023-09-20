@@ -8,7 +8,7 @@ from rest_framework import status
 from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
 from .models import *
-
+from fuel_transporter.permissions import *
 # Create your views here.
 
 class Registeration_view(APIView):
@@ -46,7 +46,7 @@ class Attendance_View(APIView):
 
     def post(self, request, action):
         
-
+        permission_classes = (User_priviledge,)
         serializer = AttendanceSerializer(data = {'user' : request.user.pk , 'action': action })
         
         serializer.is_valid(raise_exception = True)
@@ -56,6 +56,7 @@ class Attendance_View(APIView):
 
 
     def get(self,request,action):
+        permission_classes = (Admin_priviledge,)
         queryset = Attendance.objects.all()
         serializer = AttendanceSerializer(queryset, many = True)
 

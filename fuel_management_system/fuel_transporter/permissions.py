@@ -13,6 +13,15 @@ class Admin_priviledge(permissions.BasePermission):
 
         return False
 
+class User_priviledge(permissions.BasePermission):
+    edit_methods = ("PUT", "PATCH")
+
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            return True
+
+        return False
+
     
 class Fuel_transporter_priviledge(permissions.BasePermission):
     edit_methods = ("PUT", "PATCH")

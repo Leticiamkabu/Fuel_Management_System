@@ -10,7 +10,7 @@ from datetime import datetime
 class Meter_reading_View(APIView):
 
     def post(self, request):
-        # permission_classes = (Fuel_Attendant_priviledge)
+        permission_classes = (Fuel_Attendant_priviledge)
         serializer = Meter_readingSerializer(data = request.data)
         serializer.is_valid(raise_exception= True)
         serializer.save()
@@ -19,7 +19,7 @@ class Meter_reading_View(APIView):
 
 
     def patch(self, request):
-
+        permission_classes = (Fuel_Attendant_priviledge)
         queryset = Meter_reading.objects.get(date = datetime.today().date())
         serializer = Meter_readingSerializer(instance = queryset, data = request.data, partial = True)
 
@@ -27,3 +27,12 @@ class Meter_reading_View(APIView):
         serializer.save()
 
         return Response(serializer.data)
+
+
+    def get(self, request):
+        permission_classes = (Fuel_Attendant_priviledge)
+        queryset = Meter_reading.objects.latest('date')
+        serializer = Meter_readingSerializer(queryset, many = False)
+
+        return Response(serializer.data)
+

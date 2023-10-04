@@ -18,6 +18,22 @@ class Fuel_dippingSerializer(serializers.ModelSerializer):
 
         return dippings
 
+class Fuel_pricesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fuel_prices
+        fields = ['user','name','diesel', 'superfuel', 'timestamp']
+
+
+    def create(self, validated_data):
+        prices = Fuel_prices.objects.create(
+            name = validated_data['name'],
+            diesel = validated_data['diesel'],
+            superfuel = validated_data['superfuel'],
+
+        )
+        prices.save() 
+
+        return prices
 
 class Daily_statisticsSerializer(serializers.ModelSerializer):
     class Meta:

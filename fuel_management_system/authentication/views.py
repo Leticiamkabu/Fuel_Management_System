@@ -34,10 +34,18 @@ class Login_View(APIView):
         if user is not None:
             login(request, user)
             token = Token.objects.get(user=user)
+            user_details = {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'role': user.role,
+                # Add other user details you want to include
+            }
+
 
 
         # Generate JWT token or session logic here
-            return Response({'token': token.key },status=status.HTTP_200_OK)
+            return Response({'token': token.key, 'user': user_details },status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 

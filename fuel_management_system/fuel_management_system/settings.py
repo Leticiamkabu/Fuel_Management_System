@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'background_task',
     'authentication',
     'fuel_transporter',
     'fuel_attendant',
@@ -142,3 +143,14 @@ REST_FRAMEWORK = {
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+
+
+# settings.py
+
+BACKGROUND_TASK_RUN_IMMEDIATELY = False
+BACKGROUND_TASK_QUEUE = 'default'
+
+# # Celery settings (if you're using Celery)
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

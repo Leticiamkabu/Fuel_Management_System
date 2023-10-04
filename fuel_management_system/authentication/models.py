@@ -8,8 +8,8 @@ from django.conf import settings
 # Create your models here.
 ROLE = (
     ('Manager', 'Manager'),
-    ('Fuel_Attendant', 'Fuel Attendant'),
-    ('Fuel_Transporter', 'Fuel Transporter'),
+    ('Fuel Attendant', 'Fuel Attendant'),
+    ('Fuel Transporter', 'Fuel Transporter'),
 )
 class Registeration(AbstractUser):
     phone_number = models.IntegerField(default = 0)
@@ -20,7 +20,7 @@ class Registeration(AbstractUser):
 @receiver(pre_save, sender= Registeration)
 def generate_username(sender, instance, *args, **kwargs):
     if not instance.username:  # Only generate if the field is empty
-        instance.username = instance.first_name +'_' + instance.last_name
+        instance.username = instance.first_name + '_' + instance.last_name
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -35,6 +35,7 @@ ATTENDANCE_CHOICE = (
 )
 
 class Attendance(models.Model):
+    id = models.AutoField(primary_key = True)
     user = models.ForeignKey(Registeration, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True,)
     action = models.CharField(max_length = 10, choices = ATTENDANCE_CHOICE)

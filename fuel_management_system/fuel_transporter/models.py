@@ -5,7 +5,8 @@ from authentication.models import *
 
 
 class Fuel_purchased_details(models.Model):
-    user = models.OneToOneField(Registeration, on_delete = models.CASCADE)
+    id = models.AutoField(primary_key = True)
+    user = models.ForeignKey(Registeration, on_delete=models.CASCADE, default = 1)
     name = models.CharField(max_length = 200)
     supplier_name = models.CharField(max_length = 200)
     supplier_contact = models.IntegerField()
@@ -20,4 +21,4 @@ class Fuel_purchased_details(models.Model):
 def add_user(sender, instance, ** kwargs):
     registration = Registeration.objects.get(username = instance.name)
     instance.user = registration
-    # instance.user = Registeration.objects.get(id = instance.name)
+    

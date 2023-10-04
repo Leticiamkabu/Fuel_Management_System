@@ -16,6 +16,16 @@ class Fuel_dipping_view(APIView):
 
         return Response(serializer.data)
 
+class Fuel_prices_view(APIView):
+
+    def post(self, request):
+        permission_classes = (Manager_priviledge)
+        serializer = Fuel_pricesSerializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        serializer.save()
+
+        return Response(serializer.data)
+
 
 class Daily_statistics_view(APIView):
 

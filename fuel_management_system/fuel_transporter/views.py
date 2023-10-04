@@ -17,7 +17,7 @@ class Fuel_purchased_details_View(APIView):
         return Response(serializer.data)
 
     def get(self,request):
-        permission_classes = (Admin_priviledge)
+        permission_classes = (Admin_priviledge,Fuel_transporter_priviledge)
         queryset = Fuel_purchased_details.objects.latest('date', 'time')
         serializer = Fuel_purchased_detailsSerializer(queryset, many = False)
 

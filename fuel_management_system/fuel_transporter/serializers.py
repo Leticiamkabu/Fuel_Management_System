@@ -6,7 +6,7 @@ class Fuel_purchased_detailsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fuel_purchased_details
-        fields = [ 'name', 'supplier_name', 'supplier_contact', 'litters_bought','date','time', 'receipt']
+        fields = [ 'user', 'name', 'supplier_name', 'supplier_contact', 'litters_bought','date','time', 'receipt']
 
 
     def create(self, validated_data):

@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'fuel_transporter',
     'fuel_attendant',
     'manager',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -154,3 +156,8 @@ BACKGROUND_TASK_QUEUE = 'default'
 # # Celery settings (if you're using Celery)
 # CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+CORS_ALLOWED_ORIGINS = [
+"http://localhost:4200",
+"http://localhost:63202"
+]

@@ -15,6 +15,12 @@ class Fuel_dipping_view(APIView):
         serializer.save()
 
         return Response(serializer.data)
+    
+    def get(self, request):
+        dips = Fuel_dipping.objects.all()
+        serializer = Fuel_dippingSerializer(dips, many= True)
+
+        return Response(serializer.data)
 
 class Fuel_prices_view(APIView):
 
@@ -25,7 +31,12 @@ class Fuel_prices_view(APIView):
         serializer.save()
 
         return Response(serializer.data)
+    
+    def get(self, request):
+        prices = Fuel_prices.objects.all()
+        serializer = Fuel_pricesSerializer(prices, many= True)
 
+        return Response(serializer.data)
 
 class Daily_statistics_view(APIView):
 
@@ -33,7 +44,6 @@ class Daily_statistics_view(APIView):
         queryset = Daily_statistics.objects.all()
 
         serializer = Daily_statisticsSerializer(data = queryset, many = True)
-        serializer.is_valid(raise_exception = True)
-        serilalizer.save()
 
         return Response(serializer.data)
+    

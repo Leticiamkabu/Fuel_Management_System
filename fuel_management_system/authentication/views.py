@@ -20,6 +20,15 @@ class Registeration_view(APIView):
         serializer.save()
 
         return Response(serializer.data)
+    
+
+class UserView(APIView):
+
+    def get(self, request):
+        users = Registeration.objects.all()
+        serializer = RegisterationSerializer(users, many=True)
+
+        return Response(serializer.data)
 
 
 class Login_View(APIView):

@@ -64,8 +64,14 @@ class Attendance_View(APIView):
     def post(self, request, action):
         
         permission_classes = (User_priviledge,)
-        serializer = AttendanceSerializer(data = {'user' : request.user.pk , 'action': action })
+        data = {
+            'user': request.user.pk,
+            'action': action,
+            'clockin': request.data.get('clockin'),  
+            'clockout': request.data.get('clockout'), 
+        }
         
+        serializer = AttendanceSerializer(data = data)
         serializer.is_valid(raise_exception = True)
         serializer.save()  
 

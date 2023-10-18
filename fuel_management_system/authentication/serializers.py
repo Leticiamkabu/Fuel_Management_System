@@ -29,7 +29,26 @@ class AttendanceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Attendance
-        fields = ['user','timestamp', 'action']
+        fields = ['user','clockin','clockout' ,'action']
+
+
+    def create(self, validated_data):
+
+        user_attendance = Attendance.objects.create(
+            user = validated_data['user'],
+            clockin = validated_data['clockin'],
+            clockout = validated_data['clockout'],
+            action = validated_data['action'],
+
+            
+        )
+
+        
+        user_attendance.save()
+        
+        
+        return user_attendance
+
 
     
 

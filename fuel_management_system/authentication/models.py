@@ -4,6 +4,7 @@ from django.db.models.signals import pre_save, post_delete, post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 ROLE = (
@@ -37,7 +38,8 @@ ATTENDANCE_CHOICE = (
 class Attendance(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(Registeration, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True,)
+    clockin= models.DateTimeField(default=timezone.now)
+    clockout = models.DateTimeField(default=timezone.now)
     action = models.CharField(max_length = 10, choices = ATTENDANCE_CHOICE)
 
 

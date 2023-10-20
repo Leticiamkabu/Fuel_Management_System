@@ -83,3 +83,11 @@ class Meter_reading_View(APIView):
 
     
 
+class Meter_reading_View_by_id(APIView):
+
+    def get(self, request, id):
+        permission_classes = (Fuel_Attendant_priviledge)
+        queryset = Meter_reading.objects.get(id = id)
+        serializer = Meter_readingSerializer(queryset, many = False)
+
+        return Response(serializer.data)

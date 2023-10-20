@@ -104,18 +104,18 @@ def list_of_attendance_by_id(request, id):
 
 
 
-
+# get request
 def clock_in(request, user_id):
     # Check if there's an existing record for the user on the current date
     today = timezone.now().date()
     existing_record = Attendance.objects.filter(user_id=user_id, clockin__date=today)
     
     if existing_record.exists():
-        return JsonResponse({"error": "You are already clocked in today."})
+        return JsonResponse({"error": "You are already clocked in today."}, status=400)
     else:
         new_record = Attendance(user_id=user_id, has_clocked_in=True)
         new_record.save()
-        return JsonResponse({"message": "Clock-in successful."})
+        return JsonResponse({"message": "Clock-in successful."}, status=200)
 
 def clock_out(request, user_id):
     # Check if there's an existing record for the user on the current date
@@ -125,11 +125,11 @@ def clock_out(request, user_id):
     if existing_record.exists():
         record = existing_record.first()
         if not record.has_clocked_in:
-            return JsonResponse({"error": "You must clock in before clocking out."})
+            return JsonResponse({"error": "You must clock in before clocking out."}, status=400)
         else:
             record.clockout = timezone.now()
             record.has_clocked_in = False
             record.save()
-            return JsonResponse({"message": "Clock-out successful."})
+            return JsonResponse({"message": "Clock-out successful."}, status=200)
     else:
         return JsonResponse({"error": "You have not clocked in today."})

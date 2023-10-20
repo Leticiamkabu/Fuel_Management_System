@@ -61,13 +61,7 @@ class Meter_reading_View(APIView):
 
         return Response(serializer.data)
 
-    def get(self, request, id):
-        permission_classes = (Fuel_Attendant_priviledge)
-        queryset = Meter_reading.objects.get(id = id)
-        serializer = Meter_readingSerializer(queryset, many = False)
-
-        return Response(serializer.data)
-
+ 
 
     def delete(self, request, id):
         permission_classes = (Fuel_Attendant_priviledge)

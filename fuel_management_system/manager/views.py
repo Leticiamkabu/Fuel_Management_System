@@ -51,12 +51,7 @@ class Fuel_dipping_view(APIView):
         return Response(serializer.data)
 
 
-    def get(self, request, id):
-        permission_classes = (Manager_priviledge)
-        queryset = Fuel_dipping.objects.get(id = id)
-        serializer = Fuel_dippingSerializer(queryset, many = False)
-
-        return Response(serializer.data)
+    
 
 
     def delete(self, request, id):
@@ -123,12 +118,7 @@ class Fuel_prices_view(APIView):
 
         return Response(serializer.data)
 
-    def get(self, request, id):
-        permission_classes = (Manager_priviledge)
-        queryset = Fuel_prices.objects.get(id = id)
-        serializer = Fuel_pricesSerializer(queryset, many = False)
-
-        return Response(serializer.data)
+   
 
     def delete(self, request, id):
         permission_classes = (Manager_priviledge)

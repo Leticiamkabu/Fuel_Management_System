@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
 from .models import *
 from fuel_transporter.permissions import *
+from django.http import JsonResponse
 # Create your views here.
 
 class Registeration_view(APIView):
@@ -86,6 +87,20 @@ class Attendance_View(APIView):
         return Response(serializer.data)
 
     
+
+def get_attendance(request):
+    queryset = Attendance.objects.all()
+    serializer = AttendanceSerializer(queryset, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+def list_of_attendance_by_id(request, id):
+    queryset = Attendance.objects.filter(user=id)
+    serializer = AttendanceSerializer(queryset, many=True)
+
+    return JsonResponse(serializer.data, safe=False)
+
+
 
 
 

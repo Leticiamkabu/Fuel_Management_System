@@ -38,13 +38,7 @@ class Fuel_purchased_details_View(APIView):
 
         return Response(serializer.data)
 
-    def get(self, request, id):
-        permission_classes = (Admin_priviledge,Fuel_transporter_priviledge)
-        queryset = Fuel_purchased_details.objects.get(id = id)
-        serializer = Fuel_purchased_detailsSerializer(queryset, many = False)
-
-        return Response(serializer.data)
-
+   
 
     def delete(self, request, id):
         permission_classes = (Admin_priviledge,Fuel_transporter_priviledge)

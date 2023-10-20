@@ -72,7 +72,16 @@ class Fuel_dipping_view(APIView):
 
 
 
-    
+class Fuel_dipping_view_by_id(APIView):
+
+    def get(self, request, id):
+        permission_classes = (Manager_priviledge)
+        queryset = Fuel_dipping.objects.get(id = id)
+        serializer = Fuel_dippingSerializer(queryset, many = False)
+
+        return Response(serializer.data)
+
+
 
 class Fuel_prices_view(APIView):
 
@@ -132,6 +141,16 @@ class Fuel_prices_view(APIView):
 
         return Response({"message": "Fuel price data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+
+
+class Fuel_prices_view_by_id(APIView):
+
+    def get(self, request, id):
+        permission_classes = (Manager_priviledge)
+        queryset = Fuel_prices.objects.get(id = id)
+        serializer = Fuel_pricesSerializer(queryset, many = False)
+
+        return Response(serializer.data)
 
 
 class Daily_statistics_view(APIView):

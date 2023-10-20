@@ -58,3 +58,11 @@ class Fuel_purchased_details_View(APIView):
         return Response({"message": "Fuel purchase data deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         
 
+class Fuel_purchased_details_View_by_id(APIView):
+
+    def get(self, request, id):
+        permission_classes = (Admin_priviledge,Fuel_transporter_priviledge)
+        queryset = Fuel_purchased_details.objects.get(id = id)
+        serializer = Fuel_purchased_detailsSerializer(queryset, many = False)
+
+        return Response(serializer.data)

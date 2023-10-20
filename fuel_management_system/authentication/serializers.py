@@ -26,10 +26,10 @@ class RegisterationSerializer(serializers.ModelSerializer):
         return user_registeration
 
 class AttendanceSerializer(serializers.ModelSerializer):
-
+    user = RegisterationSerializer()
     class Meta:
         model = Attendance
-        fields = ['user','clockin','clockout' ,'action']
+        fields = ['user','clockin','clockout']
 
 
     def create(self, validated_data):

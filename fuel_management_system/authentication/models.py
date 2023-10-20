@@ -38,9 +38,8 @@ ATTENDANCE_CHOICE = (
 class Attendance(models.Model):
     id = models.AutoField(primary_key = True)
     user = models.ForeignKey(Registeration, on_delete=models.CASCADE)
-    clockin= models.DateTimeField(default=timezone.now)
+    clockin = models.DateTimeField(default=timezone.now)
     clockout = models.DateTimeField(default=timezone.now)
-    action = models.CharField(max_length = 10, choices = ATTENDANCE_CHOICE)
-
+    has_clocked_in = models.BooleanField(default=False)
 
 

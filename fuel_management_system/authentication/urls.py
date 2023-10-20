@@ -8,5 +8,7 @@ urlpatterns = [
     path('attendance/<str:action>/', Attendance_View.as_view(), name = 'Attendance'),
     path('attendance/', get_attendance, name = 'Attendance'),
     path('attendance_by_user/<int:id>/', list_of_attendance_by_id, name = 'Attendance_by_id'),
+    path('clock_in/<int:user_id>/', clock_in, name = 'Attendance_by_id'),
+    path('clock_out/<int:user_id>/', clock_out, name = 'Attendance_by_id'),
 
 ]

@@ -61,8 +61,8 @@ class Login_View(APIView):
 
 
 class Attendance_View(APIView):
-
-    def post(self, request, action):
+    
+    def post(self, request):
         
         permission_classes = (User_priviledge,)
         data = {
@@ -79,7 +79,7 @@ class Attendance_View(APIView):
         return Response(serializer.data)
 
 
-    def get(self,request,action):
+    def get(self,request):
         permission_classes = (Admin_priviledge,)
         queryset = Attendance.objects.all()
         serializer = AttendanceSerializer(queryset, many = True)
@@ -105,3 +105,31 @@ def list_of_attendance_by_id(request, id):
 
 
 
+def clock_in(request, user_id):
+    # Check if there's an existing record for the user on the current date
+    today = timezone.now().date()
+    existing_record = Attendance.objects.filter(user_id=user_id, clockin__date=today)
+    
+    if existing_record.exists():
+        return JsonResponse({"error": "You are already clocked in today."})
+    else:
+        new_record = Attendance(user_id=user_id, has_clocked_in=True)
+        new_record.save()
+        return JsonResponse({"message": "Clock-in successful."})
+
+def clock_out(request, user_id):
+    # Check if there's an existing record for the user on the current date
+    today = timezone.now().date()
+    existing_record = Attendance.objects.filter(user_id=user_id, clockin__date=today)
+    
+    if existing_record.exists():
+        record = existing_record.first()
+        if not record.has_clocked_in:
+            return JsonResponse({"error": "You must clock in before clocking out."})
+        else:
+            record.clockout = timezone.now()
+            record.has_clocked_in = False
+            record.save()
+            return JsonResponse({"message": "Clock-out successful."})
+    else:
+        return JsonResponse({"error": "You have not clocked in today."})

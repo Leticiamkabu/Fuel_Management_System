@@ -4,7 +4,7 @@ from .models import *
 class Fuel_dippingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fuel_dipping
-        fields = ['name', 'diesel_dipping', 'super_dipping', 'date_time']
+        fields = ['id','name', 'diesel_dipping', 'super_dipping', 'date_time']
 
 
     def create(self, validated_data):

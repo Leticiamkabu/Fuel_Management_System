@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from fuel_transporter.permissions import *
 from datetime import datetime
 from rest_framework import status
+from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -15,6 +17,13 @@ class Meter_reading_View(APIView):
         serializer = Meter_readingSerializer(data = request.data)
         serializer.is_valid(raise_exception= True)
         serializer.save()
+
+        return Response(serializer.data)
+    
+    def get(self, request):
+        permission_classes = (Fuel_Attendant_priviledge)
+        queryset = Meter_reading.objects.all()
+        serializer = Meter_readingSerializer(queryset, many = True)
 
         return Response(serializer.data)
 
@@ -54,14 +63,25 @@ class Meter_reading_View(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
-    def get(self, request):
+    
+
+def get_last_meter_reading(request):
         permission_classes = (Fuel_Attendant_priviledge)
         queryset = Meter_reading.objects.latest('date')
         serializer = Meter_readingSerializer(queryset, many = False)
 
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
+    
 
- 
+class Meter_reading_View_by_id(APIView):
+
+    def get(self, request, id):
+        permission_classes = (Fuel_Attendant_priviledge)
+        queryset = Meter_reading.objects.get(id = id)
+        serializer = Meter_readingSerializer(queryset, many = False)
+
+        return Response(serializer.data)
+    
 
     def delete(self, request, id):
         permission_classes = (Fuel_Attendant_priviledge)
@@ -73,15 +93,3 @@ class Meter_reading_View(APIView):
             return Response({"error": "Meter reading not found"}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({"message": "Meter reading deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-
-
-    
-
-class Meter_reading_View_by_id(APIView):
-
-    def get(self, request, id):
-        permission_classes = (Fuel_Attendant_priviledge)
-        queryset = Meter_reading.objects.get(id = id)
-        serializer = Meter_readingSerializer(queryset, many = False)
-
-        return Response(serializer.data)
